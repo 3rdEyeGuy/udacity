@@ -111,7 +111,8 @@ Sprite = function () {
   this.getInterference = function () {
     return this.collidesWith;
   }
-
+  this.color = 'yellow';
+  this.solid = true;
   this.x     = 0;
   this.y     = 0;
   this.rot   = 0;

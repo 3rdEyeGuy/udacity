@@ -2,7 +2,6 @@
 #the function sense. This means that the entries in q 
 #should sum to one.
 
-
 p=[0.2, 0.2, 0.2, 0.2, 0.2]
 world=['green', 'red', 'red', 'green', 'green']
 Z = 'red'
@@ -14,15 +13,11 @@ def sense(p, Z):
     for i in range(len(p)):
         hit = (Z == world[i])
         q.append(p[i] * (hit * pHit + (1-hit) * pMiss))
-    sum = sum(q)
-    try:
-        for i in range(len(q)):
-            q[i] = (q[i]/sum)
-        print(q)
-        return q
-    except: 
-        print('fuck')
-        quit()
-#print sense(p,Z)
+    norm = sum(q)
+    for i in range(len(q)):
+        q[i] = q[i] / norm
+    return q
+
+print(sense(p,Z))
 
 

@@ -2,7 +2,8 @@
 #q, shifted to the right by U units. If U=0, q should 
 #be the same as p.
 
-p=[0, 1, 0, 0, 0]
+p=[0, 1, 2, 3, 4]
+print('test',p[0],p[-1],p[-2],p[-3], p[-4])
 world=['green', 'red', 'red', 'green', 'green']
 measurements = ['red', 'green']
 pHit = 0.6

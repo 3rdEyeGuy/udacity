@@ -21,14 +21,12 @@ def sense(p, Z):
 def move(p, U):
     q = []
     for k in range(U):
-        print('move#:', k)
         for i in range(len(p)):
             if len(q) != len(p):
                 q.append(p[(len(p)-(i+2))])
-                print('loop1',q)
-            else:
-                q[i] = p[(len(p)-(i-k+2))] 
-                print('loop2',q)
+        else:
+            q[i] = p[(len(p)-(i-k+2))] 
+            print(q)
     return q
 
 print(move(p, 3))

@@ -26,8 +26,8 @@ def move(p, U):
         q.append(s)
     return q
     
-#move function twice. 
-p = move(p,1)
-p = move(p,1)
+#move function 1000 times 
+for i in range(1000):
+    p = move(p, 1)
 
 print(p)

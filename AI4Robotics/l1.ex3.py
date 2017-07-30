@@ -26,5 +26,8 @@ def move(p, U):
         q.append(s)
     return q
     
+#move function twice. 
+p = move(p,1)
+p = move(p,1)
 
-print(move(p, 1))
+print(p)

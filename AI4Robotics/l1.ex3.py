@@ -16,7 +16,6 @@ def sense(p, Z):
     s = sum(q)
     for i in range(len(q)):
         q[i] = q[i] / s
-    print(q)
     return q
 
 def move(p, U):
@@ -28,8 +27,12 @@ def move(p, U):
         q.append(s)
     return q
     
-p = sense(p,measurements[0])
-p = move(p,1)
-p = sense(p,measurements[1])
-p = move(p,1)
+for i in range(len(measurements)):
+    print('senses',measurements[i],'\b:')
+    p = sense(p,measurements[i])
+    print(p,'\n')
+    print('moves',motions[i],'# of steps:')
+    p = move(p,motions[i])
+    print(p,'\n') 
+print('probability of position of robot:',p)
 

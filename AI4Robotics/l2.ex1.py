@@ -46,6 +46,7 @@
 def localize(colors,measurements,motions,sensor_right,p_move):
     # initializes p to a uniform distribution over a grid of the same dimensions as colors
     pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
+    # uniform distribution of 0.005 probability in each cell
     p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
     
     # >>> Insert your code here <<<
@@ -54,7 +55,7 @@ def localize(colors,measurements,motions,sensor_right,p_move):
 
 def show(p):
     rows = ['[' + ','.join(map(lambda x: '{0:.5f}'.format(x),r)) + ']' for r in p]
-    print '[' + ',\n '.join(rows) + ']'
+    print('[' + ',\n '.join(rows) + ']')
     
 #############################################################
 # For the following test case, your output should be 
@@ -71,5 +72,10 @@ colors = [['R','G','G','R','R'],
 measurements = ['G','G','G','G','G']
 motions = [[0,0],[0,1],[1,0],[1,0],[0,1]]
 p = localize(colors,measurements,motions,sensor_right = 0.7, p_move = 0.8)
-show(p) # displays your answer
 
+# test the lines
+pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
+    # uniform distribution of 0.005 probability in each cell
+p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
+
+show(p) # displays your answer

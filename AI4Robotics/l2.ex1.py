@@ -119,6 +119,8 @@ pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
 print(pinit)
 p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
 
+show(p)
+print('\n')
 p_move = 0.8
 sensor_right = 0.7
 

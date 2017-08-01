@@ -72,9 +72,10 @@ def sense(p, colors, measurements, sensor_wrong):
     q = [[ 0 for col in range(len(p[0]))] for row in range(len(p))]
     for row in range(len(p)):
         for col in range(len(p[0])):
-            hit = (measurements == colors[i])
-            q[row][col] = p[row][col]*(hit*(pHit+(1-hit)*pMiss))
-            s = sum(q)
+            hit = (measurements == colors[row][col])
+            q[row][col] = p[row][col]*(hit*(sensor_right+(1-hit)*sensor_wrong))
+    s = sum(sum(q, []))
+
     for row in range(len(p)):
         for col in range(len(p[0])):
             q[row][col] = q[row][col]/s
@@ -119,11 +120,10 @@ print(pinit)
 p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
 
 p_move = 0.8
-p[3][4] = .99
-p = move(p,motions[0], p_stay = 1-p_move)
-p = move(p,motions[1], p_stay = 1-p_move)
-p = move(p,motions[2], p_stay = 1-p_move)
-p = move(p,motions[3], p_stay = 1-p_move)
-p = move(p,motions[4], p_stay = 1-p_move)
+sensor_right = 0.7
+
+for i in range(len(motions)):
+    p = move(p,motions[i], p_stay = 1-p_move)
+    p = sense(p,colors,measurements[i], sensor_wrong = 1-sensor_right)
 
 show(p) # displays your answer

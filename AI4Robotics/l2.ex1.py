@@ -44,13 +44,28 @@
 #  [-1,0] - up
 
 def move(p, motions,p_stay):
-    for i in range(len(p)):
-        s = p_stay*p
-        s = k
 
-
-
-
+    q = [[ 0 for col in range(len(p[0]))] for row in range(len(p))]
+    for row in range(len(p)):
+        for col in range(len(p[0])):
+            if motions == [0,1]:
+                s = p_stay*p[row][col]
+                s = s + p_move*p[row][col-1]
+                q[row][col] = s 
+            elif motions == [0,-1]:
+                s = p_stay*p[row][col]
+                s = s + p_move*p[row][(col+1)%len(p)]
+                q[row][col] = s 
+            elif motions == [1,0]:
+                s = p_stay*p[row][col]
+                s = s + p_move*p[(row-1)][col]
+                q[row][col] = s 
+            elif motions == [-1,0]:
+                s = p_stay*p[row][col]
+                s = s + p_move*p[(row+1)%len(p)][col]
+                q[row][col] = s 
+            elif motions == [0,0]:
+                q[row][col] = p[row][col]
     return q
 
 def localize(colors,measurements,motions,sensor_right,p_move):
@@ -61,7 +76,7 @@ def localize(colors,measurements,motions,sensor_right,p_move):
     
     
     for i in range(len(measurements)):
-        p = [[move(p, motions[i], p_stay = 1-p_move) for row in range(len(colors[0]))] for col in range(len(colors))]    
+        p = [[move(p, motions, p_stay = 1-p_move) for row in range(len(colors[0]))] for col in range(len(colors))]    
         p = [[sense(p, colors, measurements[i], sensor_wrong = 1-sensor_right) for row in range(len(colors[0]))] for col in range(len(colors))]    
              
     return p
@@ -88,6 +103,15 @@ motions = [[0,0],[0,1],[1,0],[1,0],[0,1]]
 #p = localize(colors,measurements,motions,sensor_right = 0.7, p_move = 0.8)
 
 pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
+print(pinit)
 p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
+
+p_move = 0.8
+p[3][4] = .99
+p = move(p,motions[0], p_stay = 1-p_move)
+p = move(p,motions[1], p_stay = 1-p_move)
+p = move(p,motions[2], p_stay = 1-p_move)
+p = move(p,motions[3], p_stay = 1-p_move)
+p = move(p,motions[4], p_stay = 1-p_move)
 
 show(p) # displays your answer

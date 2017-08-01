@@ -43,14 +43,27 @@
 #  [1,0] - down
 #  [-1,0] - up
 
+def move(p, motions,p_stay):
+    for i in range(len(p)):
+        s = p_stay*p
+        s = k
+
+
+
+
+    return q
+
 def localize(colors,measurements,motions,sensor_right,p_move):
     # initializes p to a uniform distribution over a grid of the same dimensions as colors
     pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
     # uniform distribution of 0.005 probability in each cell
     p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
     
-    # >>> Insert your code here <<<
     
+    for i in range(len(measurements)):
+        p = [[move(p, motions[i], p_stay = 1-p_move) for row in range(len(colors[0]))] for col in range(len(colors))]    
+        p = [[sense(p, colors, measurements[i], sensor_wrong = 1-sensor_right) for row in range(len(colors[0]))] for col in range(len(colors))]    
+             
     return p
 
 def show(p):
@@ -71,11 +84,10 @@ colors = [['R','G','G','R','R'],
           ['R','R','R','R','R']]
 measurements = ['G','G','G','G','G']
 motions = [[0,0],[0,1],[1,0],[1,0],[0,1]]
-p = localize(colors,measurements,motions,sensor_right = 0.7, p_move = 0.8)
 
-# test the lines
+#p = localize(colors,measurements,motions,sensor_right = 0.7, p_move = 0.8)
+
 pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
-    # uniform distribution of 0.005 probability in each cell
 p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
 
 show(p) # displays your answer

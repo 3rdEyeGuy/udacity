@@ -68,6 +68,18 @@ def move(p, motions,p_stay):
                 q[row][col] = p[row][col]
     return q
 
+def sense(p, colors, measurements, sensor_wrong):
+    q = [[ 0 for col in range(len(p[0]))] for row in range(len(p))]
+    for row in range(len(p)):
+        for col in range(len(p[0])):
+            hit = (measurements == colors[i])
+            q[row][col] = p[row][col]*(hit*(pHit+(1-hit)*pMiss))
+            s = sum(q)
+    for row in range(len(p)):
+        for col in range(len(p[0])):
+            q[row][col] = q[row][col]/s
+    return q
+
 def localize(colors,measurements,motions,sensor_right,p_move):
     # initializes p to a uniform distribution over a grid of the same dimensions as colors
     pinit = 1.0 / float(len(colors)) / float(len(colors[0]))

@@ -82,15 +82,25 @@ def sense(p, colors, measurements, sensor_wrong):
     return q
 
 def localize(colors,measurements,motions,sensor_right,p_move):
+
+    sensor_right = sensor_right
+    p_move = p_move
+    p_stay = 1-p_move
+    sensor_wrong = 1-sensor_right
+
     # initializes p to a uniform distribution over a grid of the same dimensions as colors
     pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
     # uniform distribution of 0.005 probability in each cell
     p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
     
+
     
     for i in range(len(motions)):
-        p = move(p,motions[i], p_stay = 1-p_move)
-        p = sense(p,colors,measurements[i], sensor_wrong = 1-sensor_right)
+        show(p)
+        print('\n')
+        p = move(p,motions[i], p_stay)
+        print(p_stay,sensor_wrong,'\n')
+        p = sense(p,colors,measurements[i], sensor_wrong)
 
                  
     return p
@@ -113,9 +123,7 @@ colors = [['R','G','G','R','R'],
           ['R','R','R','R','R']]
 measurements = ['G','G','G','G','G']
 motions = [[0,0],[0,1],[1,0],[1,0],[0,1]]
-p_move = 0.8
-sensor_right = 0.7
 
-p = localize(colors,measurements,motions,sensor_right = 0.7, p_move = 0.8)
+p = localize(colors,measurements,motions,0.7,0.8)
 
 show(p) # displays your answer

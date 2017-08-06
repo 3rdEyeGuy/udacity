@@ -46,6 +46,7 @@
 def move(p, motions,p_stay):
 
     q = [[ 0 for col in range(len(p[0]))] for row in range(len(p))]
+    p_move = 1 - p_stay
     for row in range(len(p)):
         for col in range(len(p[0])):
             if motions == [0,1]:
@@ -73,7 +74,7 @@ def sense(p, colors, measurements, sensor_wrong):
     for row in range(len(p)):
         for col in range(len(p[0])):
             hit = (measurements == colors[row][col])
-            q[row][col] = p[row][col]*(hit*(sensor_right+(1-hit)*sensor_wrong))
+            q[row][col] = p[row][col]*(hit*(1-sensor_wrong)+((1-hit)*sensor_wrong))
     s = sum(sum(q, []))
 
     for row in range(len(p)):
@@ -82,6 +83,9 @@ def sense(p, colors, measurements, sensor_wrong):
     return q
 
 def localize(colors,measurements,motions,sensor_right,p_move):
+    p_move = p_move
+    sensor_right = sensor_right
+
     # initializes p to a uniform distribution over a grid of the same dimensions as colors
     pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
     # uniform distribution of 0.005 probability in each cell
@@ -113,10 +117,10 @@ colors = [['R','G','G','R','R'],
           ['R','R','R','R','R']]
 measurements = ['G','G','G','G','G']
 motions = [[0,0],[0,1],[1,0],[1,0],[0,1]]
-p_move = 0.8
 sensor_right = 0.7
+p_move = 0.8
 
-p = localize(colors,measurements,motions,sensor_right = 0.7, p_move = 0.8)
+p = localize(colors,measurements,motions,sensor_right, p_move)
 
     
 show(p) # displays your answer

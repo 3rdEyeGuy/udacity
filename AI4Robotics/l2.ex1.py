@@ -55,24 +55,8 @@ def localize(colors,measurements,motions,sensor_right,p_move):
         p_move = 1 - p_stay
         for row in range(len(p)):
             for col in range(len(p[row])):
-                if motions == [0,1]:
-                    s = p_stay*p[row][col]
-                    s = s + p_move*p[row][col-1]
-                    q[row][col] = s 
-                elif motions == [0,-1]:
-                    s = p_stay*p[row][col]
-                    s = s + p_move*p[row][(col+1)%len(p)]
-                    q[row][col] = s 
-                elif motions == [1,0]:
-                    s = p_stay*p[row][col]
-                    s = s + p_move*p[(row-1)][col]
-                    q[row][col] = s 
-                elif motions == [-1,0]:
-                    s = p_stay*p[row][col]
-                    s = s + p_move*p[(row+1)%len(p)][col]
-                    q[row][col] = s 
-                elif motions == [0,0]:
-                    q[row][col] = p[row][col]
+                s = p_stay*p[row][col] + (p_move*p[(row - motions[0])%len(p)][(col-motions[1])%len(p[row])])
+                q[row][col] = s 
         return q
 
     def sense(p, colors, measurements, sensor_wrong):

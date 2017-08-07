@@ -76,7 +76,6 @@ def localize(colors,measurements,motions,sensor_right,p_move):
         p = move(p,motions[i], p_stay = 1-p_move)
         p = sense(p,colors,measurements[i], sensor_wrong = 1-sensor_right)
 
-
     return p
 
 def show(p):
@@ -98,7 +97,6 @@ colors = [['R','G','G','R','R'],
 measurements = ['G','G','G','G','G']
 motions = [[0,0],[0,1],[1,0],[1,0],[0,1]]
 
-print(motions[0],motions[1])
 p = localize(colors,measurements,motions,sensor_right = 0.7, p_move = 0.8)
 show(p) # displays your answer
 

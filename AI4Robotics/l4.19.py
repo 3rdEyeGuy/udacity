@@ -19,15 +19,9 @@ motion_sig = 2.
 mu = 0.
 sig = 10000.
 
-new_mean = mu
-new_var = sig
-
 for i in range(len(measurements)):
-    new_mean, new_var = update(new_mean, new_var, measurements[i], measurement_sig)
-    new_mean, new_var = predict(new_mean, new_var, motion[i], motion_sig)
-
-mu = new_mean
-sig = new_var
+    mu, sig = update(mu, sig, measurements[i], measurement_sig)
+    mu, sig = predict(mu,sig, motion[i], motion_sig)
 
 print([mu, sig])
 

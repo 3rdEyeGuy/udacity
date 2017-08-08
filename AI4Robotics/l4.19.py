@@ -19,10 +19,15 @@ motion_sig = 2.
 mu = 0.
 sig = 10000.
 
-#Please print out ONLY the final values of the mean
-#and the variance in a list [mu, sig]. 
+new_mean = mu
+new_var = sig
 
-# Insert code here
+for i in range(len(measurements)):
+    new_mean, new_var = update(new_mean, new_var, measurements[i], measurement_sig)
+    new_mean, new_var = predict(new_mean, new_var, motion[i], motion_sig)
 
-print [mu, sig]
+mu = new_mean
+sig = new_var
+
+print([mu, sig])
 

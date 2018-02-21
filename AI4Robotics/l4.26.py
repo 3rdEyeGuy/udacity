@@ -63,7 +63,7 @@ class matrix:
             for i in range(self.dimx):
                 for j in range(self.dimy):
                     res.value[i][j] = self.value[i][j] - other.value[i][j]
-            return res
+        return res
     
     def __mul__(self, other):
         # check if correct dimensions
@@ -143,8 +143,7 @@ class matrix:
 def kalman_filter(x, P):
     x = F*x+u
     P = F*P*F.transpose()
-    Ftrans = F.transpose()
-    Ftrans.show()
+    y = __sub__(measurements[0], H*x)
 #    for n in range(len(measurements)):
         # measurement update
         
